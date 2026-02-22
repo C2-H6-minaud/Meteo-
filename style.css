@@ -1,0 +1,245 @@
+:root {
+    --danger: #f08e96;
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    margin: 0; font-family: sans-serif; background: #0f172a; color: white;
+    display: flex; justify-content: center; align-items: center; min-height: 100vh;
+}
+
+.app-container {
+    width: 90%; max-width: 380px; background: #1e293b; border-radius: 40px;
+    padding: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Menu déroulant */
+.custom-select-container { position: relative; margin-bottom: 20px; }
+.select-selected { background: var(--glass); border: 1px solid var(--glass-border); padding: 12px; border-radius: 15px; cursor: pointer; }
+.select-items { position: absolute; background: #1e293b; top: 110%; left: 0; right: 0; border-radius: 15px; max-height: 250px; overflow-y: auto; z-index: 10; border: 1px solid var(--glass-border); }
+.select-hide { display: none; }
+.select-items div { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: left; cursor: pointer; }
+.select-items div:hover { background: var(--danger); }
+
+/* Météo actuelle */
+#temperature { font-size: 4rem; margin: 10px 0; }
+#weather-icon { font-size: 60px; }
+.threat-line { margin: 20px 0; padding: 15px; border-top: 1px solid var(--glass-border); min-height: 50px; }
+#threat-text { color: var(--danger); font-style: italic; }
+.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.detail-card { background: var(--glass); padding: 10px; border-radius: 15px; }
+
+/* Nouveau : Bouton et Prévisions */
+.nav-button {
+    margin-top: 25px; background: var(--danger); border: none; color: white; 
+    padding: 15px; border-radius: 15px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1rem;
+}
+
+.back-btn {
+    text-decoration: none; color: white; font-size: 1.2rem; font-weight: bold;
+    background: var(--glass); width: 40px; height: 40px; display: flex;
+    align-items: center; justify-content: center; border-radius: 12px; border: 1px solid var(--glass-border);
+}
+
+.forecast-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--glass); margin-bottom: 12px; padding: 12px 20px; border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.day-name { text-transform: capitalize; font-weight: 500; }
+.day-temp { font-weight: bold; color: var(--danger); }
+
+/* Pour une expérience mobile fluide */
+.select-items {
+    max-height: 200px; /* Limite la hauteur pour ne pas déborder */
+    overflow-y: auto;  /* Permet le défilement */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Empêche le zoom auto sur iPhone quand on clique sur les menus */
+@media screen and (max-width: 768px) {
+    body { font-size: 16px; }
+}
+
+/* Ajoute ou remplace ces parties dans ton style.css */
+
+.city-search-box {
+    padding: 0 !important; /* Pour laisser l'input prendre la place */
+    overflow: hidden;
+}
+
+#city-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    outline: none;
+}
+
+#city-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.select-items {
+    max-height: 250px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Éviter le zoom forcé sur iPhone au focus de l'input */
+@media screen and (max-width: 768px) {
+    #city-input {
+        font-size: 16px;
+    }
+}
+/* Garde ton code précédent et assure-toi que ces classes sont à jour */
+
+.city-search-box {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 2px !important;
+    display: flex;
+    align-items: center;
+}
+
+#city-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 1.1rem;
+    outline: none;
+    text-align: center;
+}
+
+#city-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.select-items {
+    max-height: 280px;
+    overflow-y: auto;
+    border-radius: 15px;
+    background: #1e293b;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+/* Optimisation mobile pour éviter le zoom iOS */
+@media screen and (max-width: 768px) {
+    #city-input {
+        font-size: 16px;
+    }
+}
+
+:root {
+    --danger: #f08e96;
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    margin: 0; font-family: sans-serif; background: #0f172a; color: white;
+    display: flex; justify-content: center; align-items: center; min-height: 100vh;
+}
+
+.app-container {
+    width: 90%; max-width: 380px; background: #1e293b; border-radius: 40px;
+    padding: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.custom-select-container { position: relative; margin-bottom: 20px; }
+
+.city-search-box {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 2px;
+}
+
+#city-input {
+    width: 100%; background: transparent; border: none; color: white;
+    padding: 12px; font-size: 1.1rem; outline: none; text-align: center;
+}
+
+.select-items {
+    position: absolute; background: #1e293b; top: 110%; left: 0; right: 0;
+    border-radius: 15px; max-height: 250px; overflow-y: auto; z-index: 10;
+    border: 1px solid var(--glass-border);
+}
+
+.select-hide { display: none; }
+
+.select-items div {
+    padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    text-align: left; cursor: pointer; display: flex; justify-content: space-between;
+}
+
+.select-items div:hover { background: var(--danger); }
+
+#temperature { font-size: 4rem; margin: 10px 0; }
+#weather-icon { font-size: 60px; }
+.threat-line { margin: 20px 0; padding: 15px; border-top: 1px solid var(--glass-border); min-height: 50px; }
+#threat-text { color: var(--danger); font-style: italic; }
+.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.detail-card { background: var(--glass); padding: 10px; border-radius: 15px; }
+
+.nav-button {
+    margin-top: 25px; background: var(--danger); border: none; color: white; 
+    padding: 15px; border-radius: 15px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1rem;
+}
+
+/* Scrollbar propre pour mobile */
+.select-items::-webkit-scrollbar { width: 5px; }
+.select-items::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+
+.select-items div {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vendee-logo-mini {
+    height: 18px; /* Hauteur ajustée */
+    width: 25px;  /* Largeur fixe pour stabiliser */
+    object-fit: contain;
+    border-radius: 2px;
+    margin-left: 10px;
+}
+
+.city-search-box {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 2px;
+    margin-bottom: 5px;
+}
+
+#city-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 1.1rem;
+    outline: none;
+    text-align: center;
+}
+
+/* Scrollbar personnalisée pour la liste */
+.select-items::-webkit-scrollbar {
+    width: 6px;
+}
+.select-items::-webkit-scrollbar-thumb {
+    background: var(--danger);
+    border-radius: 10px;
+}

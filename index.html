@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="manifest" href="./manifest.json">
+    <title>Météo du Vendéen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="custom-select-container">
+                <div class="select-selected city-search-box">
+                    <input type="text" id="city-input" placeholder="Ville ou Code Postal..." autocomplete="off">
+                </div>
+                <div class="select-items select-hide" id="city-options"></div>
+            </div>
+            <p id="date">-- -- ----</p>
+        </header>
+
+        <main>
+            <div class="weather-main">
+                <div id="weather-icon">☀️</div>
+                <h2 id="temperature">--°C</h2>
+                <p id="condition">Analyse du temps...</p>
+            </div>
+            <div class="threat-line">
+                <span id="threat-text">Je te surveille...</span>
+            </div>
+            <div class="details-grid">
+                <div class="detail-card"><span>Humidité : </span><b id="humidity">--%</b></div>
+                <div class="detail-card"><span>Vent : </span><b id="wind">-- km/h</b></div>
+            </div>
+            <button id="btn-forecast" class="nav-button">Vérifier les prochains jours</button>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
