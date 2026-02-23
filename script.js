@@ -3,25 +3,43 @@ if ('serviceWorker' in navigator) {
 }
 
 const API_KEY = 'af6291a95a09e4ca90d4baa55cbd1798'; 
-// URL mise à jour pour le logo Vendée (format PNG plus léger)
 const LOGO_VENDEE = "./logo-85.png";
 
+// Lexique adapté pour le jour et la nuit
 const lexiqueConditions = { 
-    'Clear': "Grand Soulail", 'Rain': "Ça moulle dur", 'Drizzle': "Ça fouine dehors", 
-    'Clouds': "Y'a point de soulail", 'Thunderstorm': "Orage", 'Snow': "Y'a du Fré et de la neige"
+    'Clear': "Grand Soulail", 
+    'Clear_night': "Biau ciel de nuit",
+    'Rain': "Ça moulle dur", 
+    'Drizzle': "Ça fouine dehors", 
+    'Clouds': "Y'a point de soulail", 
+    'Thunderstorm': "Orage", 
+    'Snow': "Y'a du Fré et de la neige"
 };
+
 const threats = { 
     'Clear': ["V'là le Soulail !", "O fét un biau temps !"], 
+    'Clear_night': ["V'là la lune, va te coucher. ", "O fét un biau noir."],
     'Rain': ["O moille, on va êt'tout guenés."], 
     'Clouds': ["O s'abernzit, le temps est grisoux."], 
     'Thunderstorm': ["Le tounnâ s'en vient !"], 
     'Drizzle': ["O guenasse un p'tit peu."],
     'Snow': ["Quel Fré... Couvre-toi !"]
 };
-const icons = { 'Clear': '☀️', 'Clouds': '☁️', 'Rain': '🌧️', 'Thunderstorm': '⛈️', 'Snow': '❄️', 'Drizzle': '🌦️' };
+
+// Icônes adaptées
+const icons = { 
+    'Clear': '☀️', 
+    'Clear_night': '🌙', 
+    'Clouds': '☁️', 
+    'Rain': '🌧️', 
+    'Thunderstorm': '⛈️', 
+    'Snow': '❄️', 
+    'Drizzle': '🌦️' 
+};
 
 const cityInput = document.getElementById('city-input');
 const cityOptions = document.getElementById('city-options');
+const clearBtn = document.getElementById('clear-input');
 
 let vendeeCities = []; 
 
@@ -38,6 +56,13 @@ async function init() {
     cityInput.value = lastCity;
     fetchWeather(lastCity);
 }
+
+clearBtn.onclick = (e) => {
+    e.stopPropagation();
+    cityInput.value = "";
+    cityInput.focus();
+    cityOptions.classList.add('select-hide');
+};
 
 async function handleSearch(query) {
     if (query.length < 2) {
@@ -80,7 +105,6 @@ function renderCityList(cities) {
             const cp = city.codesPostaux ? city.codesPostaux[0] : "";
             const isVendee = cp.startsWith('85');
             
-            // Correction ici : on ajoute l'image avec un fallback (si l'image bug, on ne montre rien)
             div.innerHTML = `
                 <span>${city.nom} (${cp})</span>
                 ${isVendee ? `<img src="${LOGO_VENDEE}" class="vendee-logo-mini" onerror="this.style.display='none'">` : ''}
@@ -120,17 +144,36 @@ async function fetchWeather(city) {
         const data = await res.json();
         if (data.cod !== 200) throw new Error();
 
-        const main = data.weather[0].main;
+        let main = data.weather[0].main;
         const temp = Math.round(data.main.temp);
+        
+        // --- LOGIQUE JOUR / NUIT ---
+        const currentTime = Math.floor(Date.now() / 1000); // Temps actuel en secondes
+        const isNight = currentTime < data.sys.sunrise || currentTime > data.sys.sunset;
+
+        // Si c'est le soir et que c'est dégagé, on passe en mode "Clear_night"
+        if (isNight && main === 'Clear') {
+            main = 'Clear_night';
+        }
 
         document.getElementById('temperature').innerText = `${temp}°C`;
+        
+        // Affichage du texte (Patois)
         document.getElementById('condition').innerText = temp < 5 ? `Y'a du Fré (${temp}°C)` : (lexiqueConditions[main] || data.weather[0].description);
+        
         document.getElementById('humidity').innerText = `${data.main.humidity}%`;
         document.getElementById('wind').innerText = `${Math.round(data.wind.speed * 3.6)} km/h`;
-        document.getElementById('weather-icon').innerText = icons[main] || '🌡️';
+        
+        // Icône
+        document.getElementById('weather-icon').innerText = icons[main] || (isNight ? '🌙' : '☀️');
 
+        // Dicton aléatoire
         const sayings = threats[main] || ["Je te surveille, mon gâs."];
         document.getElementById('threat-text').innerText = sayings[Math.floor(Math.random() * sayings.length)];
+
+        // Optionnel : Changer la couleur de fond si c'est la nuit
+        document.querySelector('.app-container').style.background = isNight ? "#0f172a" : "#1e293b";
+
     } catch (e) {
         document.getElementById('threat-text').innerText = "V'la une erreur, mon gâs.";
     }
@@ -143,6 +186,5 @@ cityInput.onclick = (e) => {
 };
 
 document.getElementById('btn-forecast').onclick = () => { window.location.href = "forecast.html"; };
-
 
 init();
