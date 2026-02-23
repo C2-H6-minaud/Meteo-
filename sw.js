@@ -1,5 +1,4 @@
-
-const CACHE_NAME = 'meteo-v2'; // <--- On change le nom ici
+const CACHE_NAME = 'meteo-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -8,7 +7,7 @@ const ASSETS = [
   './script.js',
   './forecast.js',
   './manifest.json',
-  './logo-85.png' // Assure-toi que le logo est bien dans la liste !
+  './logo-85.png'
 ];
 
 // ... reste du code ...
@@ -30,3 +29,4 @@ self.addEventListener('fetch', (e) => {
   );
 
 });
+
