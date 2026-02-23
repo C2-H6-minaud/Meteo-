@@ -1,4 +1,5 @@
-const CACHE_NAME = 'meteo-v1';
+
+const CACHE_NAME = 'meteo-v2'; // <--- On change le nom ici
 const ASSETS = [
   './',
   './index.html',
@@ -6,9 +7,11 @@ const ASSETS = [
   './style.css',
   './script.js',
   './forecast.js',
-  './manifest.json'
+  './manifest.json',
+  './logo-85.png' // Assure-toi que le logo est bien dans la liste !
 ];
 
+// ... reste du code ...
 // Installation du Service Worker et mise en cache des fichiers
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -25,4 +28,5 @@ self.addEventListener('fetch', (e) => {
       return response || fetch(e.request);
     })
   );
+
 });
