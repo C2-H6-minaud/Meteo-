@@ -243,3 +243,48 @@ body {
     background: var(--danger);
     border-radius: 10px;
 }
+
+/* Ajoute ces styles à ton fichier style.css */
+
+.city-search-box {
+    position: relative; /* Pour positionner la croix par rapport à la boîte */
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+}
+
+#city-input {
+    flex-grow: 1; /* L'input prend toute la place possible */
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 12px 40px 12px 12px; /* Padding à droite pour ne pas écrire SOUS la croix */
+    font-size: 1.1rem;
+    outline: none;
+    text-align: left; /* Aligné à gauche pour mieux voir ce qu'on efface */
+}
+
+.clear-btn {
+    position: absolute;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.2); /* Carré blanc semi-transparent */
+    border: none;
+    border-radius: 8px; /* Bords arrondis */
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.clear-btn:active {
+    background: var(--danger); /* Change de couleur au clic */
+}
