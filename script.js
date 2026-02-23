@@ -1,7 +1,3 @@
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); });
-}
-
 const API_KEY = 'af6291a95a09e4ca90d4baa55cbd1798'; 
 const LOGO_VENDEE = "./logo-85.png";
 
@@ -147,31 +143,22 @@ async function fetchWeather(city) {
         let main = data.weather[0].main;
         const temp = Math.round(data.main.temp);
         
-        // --- LOGIQUE JOUR / NUIT ---
-        const currentTime = Math.floor(Date.now() / 1000); // Temps actuel en secondes
+        const currentTime = Math.floor(Date.now() / 1000); 
         const isNight = currentTime < data.sys.sunrise || currentTime > data.sys.sunset;
 
-        // Si c'est le soir et que c'est dégagé, on passe en mode "Clear_night"
         if (isNight && main === 'Clear') {
             main = 'Clear_night';
         }
 
         document.getElementById('temperature').innerText = `${temp}°C`;
-        
-        // Affichage du texte (Patois)
         document.getElementById('condition').innerText = temp < 5 ? `Y'a du Fré (${temp}°C)` : (lexiqueConditions[main] || data.weather[0].description);
-        
         document.getElementById('humidity').innerText = `${data.main.humidity}%`;
         document.getElementById('wind').innerText = `${Math.round(data.wind.speed * 3.6)} km/h`;
-        
-        // Icône
         document.getElementById('weather-icon').innerText = icons[main] || (isNight ? '🌙' : '☀️');
 
-        // Dicton aléatoire
         const sayings = threats[main] || ["Je te surveille, mon gâs."];
         document.getElementById('threat-text').innerText = sayings[Math.floor(Math.random() * sayings.length)];
 
-        // Optionnel : Changer la couleur de fond si c'est la nuit
         document.querySelector('.app-container').style.background = isNight ? "#0f172a" : "#1e293b";
 
     } catch (e) {
@@ -187,8 +174,7 @@ cityInput.onclick = (e) => {
 
 document.getElementById('btn-forecast').onclick = () => { window.location.href = "forecast.html"; };
 
-init();
-
+// --- GESTION DU SERVICE WORKER (MISE À JOUR AUTO) ---
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js').then(reg => {
@@ -204,3 +190,6 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
+
+// Lancement
+init();
