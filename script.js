@@ -8,13 +8,15 @@ const LOGO_VENDEE = "./logo-85.png";
 
 const lexiqueConditions = { 
     'Clear': "Grand Soulail", 'Rain': "Ça moulle dur", 'Drizzle': "Ça fouine dehors", 
-    'Clouds': "Y'a point de soulail", 'Thunderstorm': "Orage", 'Snow': "Y'a du Fré" 
+    'Clouds': "Y'a point de soulail", 'Thunderstorm': "Orage", 'Snow': "Y'a du Fré et de la neige"
 };
 const threats = { 
     'Clear': ["V'là le Soulail !", "O fét un biau temps !"], 
     'Rain': ["O moille, on va êt'tout guenés."], 
     'Clouds': ["O s'abernzit, le temps est grisoux."], 
-    'Thunderstorm': ["Le tounnâ s'en vient !"] 
+    'Thunderstorm': ["Le tounnâ s'en vient !"], 
+    'Drizzle': ["O guenasse un p'tit peu."],
+    'Snow': ["Quel Fré... Couvre-toi !"]
 };
 const icons = { 'Clear': '☀️', 'Clouds': '☁️', 'Rain': '🌧️', 'Thunderstorm': '⛈️', 'Snow': '❄️', 'Drizzle': '🌦️' };
 
@@ -141,5 +143,6 @@ cityInput.onclick = (e) => {
 };
 
 document.getElementById('btn-forecast').onclick = () => { window.location.href = "forecast.html"; };
+
 
 init();
